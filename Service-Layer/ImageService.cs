@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service_Layer
 {
-    public class ImageService : IImageService
+    public class ImageService: IImageService
     {
         private readonly IConfiguration _config;
 
@@ -18,18 +18,27 @@ namespace Service_Layer
             _config = config;
         }
 
+        #region Save Image Method
         public async Task<string> SaveImage(IFormFile image)
         {
             // Validate image file
-            if (image == null || image.Length == 0)
-                throw new ArgumentException("No image uploaded.");
+            //if (image == null || image.Length == 0)
+            //    throw new ArgumentException("No image uploaded.");
 
-            // Create upload directory if it doesn't exist
+            // Validate file type
+            var allowedExtensions = new[] { ".jpg", ".jpeg", ".png" };
+            var fileExtension = Path.GetExtension(image.FileName).ToLower();
+            if (!allowedExtensions.Contains(fileExtension))
+                throw new ArgumentException("Invalid file type. Only JPG/PNG allowed.");
+
+            var maxFileSize = 10 * 1024 * 1024; // 10MB
+            if (image.Length > maxFileSize)
+                throw new ArgumentException("File size exceeds 10MB.");
+
             var uploadPath = _config["FileStorage:ImagePath"];
             if (!Directory.Exists(uploadPath))
                 Directory.CreateDirectory(uploadPath);
 
-            // Generate a unique filename
             var fileName = $"{Guid.NewGuid()}{Path.GetExtension(image.FileName)}";
             var filePath = Path.Combine(uploadPath, fileName);
 
@@ -41,6 +50,7 @@ namespace Service_Layer
 
             return filePath;
         }
+        #endregion
 
     }
 }

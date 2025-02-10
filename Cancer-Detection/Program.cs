@@ -16,7 +16,7 @@ var configuration = new ConfigurationBuilder()
 var connectionString = configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Persistence")));
+    options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Cancer-Detection")));
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

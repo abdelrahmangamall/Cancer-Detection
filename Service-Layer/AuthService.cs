@@ -28,7 +28,7 @@ namespace Service_Layer
         {
             // Check if user already exists
             if (await _context.Users.AnyAsync(u => u.Email == email))
-                throw new Exception("User already exists.");
+                throw new Exception("Email already exists.");
 
             // Create password hash and salt
             CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
