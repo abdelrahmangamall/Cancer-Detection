@@ -42,15 +42,15 @@ namespace Persistence.Config
                 {
                     Id = Guid.Parse("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
                     UserId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"), // Must exist in Users table
-                    ImagePath = "/images/scan1.jpg",
-                    UploadDate = new DateTime(2023, 10, 1)
+                    ImagePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\undraw_Dev_productivity_re_fylf.png" ,
+                    UploadDate =  DateTime.Now
                 },
                 new CTScan
                 {
                     Id = Guid.Parse("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
                     UserId = Guid.Parse("4fa85f64-5717-4562-b3fc-2c963f66afa7"), // Must exist in Users table
-                    ImagePath = "/images/scan2.jpg",
-                    UploadDate = new DateTime(2023, 10, 5)
+                    ImagePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\download.png",
+                    UploadDate = DateTime.Now  
                 }
             };
         }
