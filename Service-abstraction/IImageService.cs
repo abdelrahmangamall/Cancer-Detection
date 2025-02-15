@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Domain_Layer.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace Domain_Layer.Contracts
 {
     public interface IImageService
     {
-        Task<string> SaveImage(IFormFile image);
+        Task<CTScan> SaveImageAsync(IFormFile image);
     }
 
 }
