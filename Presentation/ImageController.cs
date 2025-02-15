@@ -1,48 +1,52 @@
-﻿using Domain_Layer.Contracts;
-using Microsoft.AspNetCore.Mvc;
+﻿// Presentation/Controllers/ImageController.cs
+using Domain_Layer.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Presentation
+[Authorize]
+[ApiController]
+[Route("api/scan")]
+public class ImageController : ControllerBase
 {
-    [ApiController]
-    [Route("api/images")]
-    public class ImageController : ControllerBase
+    private readonly IImageService _imageService;
+    private readonly IModelService _modelService;
+
+    public ImageController(
+        IImageService imageService,
+        IModelService modelService)
     {
-        private readonly IImageService _imageService;
+        _imageService = imageService;
+        _modelService = modelService;
+    }
 
-        public ImageController(IImageService imageService)
+    [HttpPost("upload")]
+    public async Task<IActionResult> UploadCtScan(IFormFile ctScan)
+    {
+        try
         {
-            _imageService = imageService;
-        }
+            // Save the image and get metadata
+            var uploadedCtScan = await _imageService.SaveImageAsync(ctScan);
 
+            // Pass the image to the ML model
+            var prediction = await _modelService.PredictAsync(uploadedCtScan.FilePath);
 
-        [HttpPost("upload")]
-
-
-
-
-        public async Task<IActionResult> UploadImage(IFormFile image)
-        {
-            try
+            // Return prediction result with scan metadata
+            return Ok(new
             {
-                if (image == null || image.Length == 0)
-                    return BadRequest("No image file uploaded.");
-                var imagePath = await _imageService.SaveImage(image);
-                return Ok(new { ImagePath = imagePath });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
-            }
+                ScanId = uploadedCtScan.Id,
+                uploadedCtScan.FileName,
+                Prediction = prediction.Prediction,
+                Confidence = prediction.Confidence
+            });
         }
-
-        [HttpGet("get")]
-        public IActionResult GetImage(string imagePath)
+        catch (ArgumentException ex)
         {
-            if (!System.IO.File.Exists(imagePath))
-                return NotFound("Image not found.");
-            var imageBytes = System.IO.File.ReadAllBytes(imagePath);
-            return File(imageBytes, "image/jpeg"); 
+            return BadRequest(ex.Message);
         }
-    }    
+        catch (Exception ex)
+        {
+            return StatusCode(500, $"Internal error: {ex.Message}");
+        }
+    }
 }
