@@ -10,7 +10,7 @@ namespace Service_Layer
 {
     public class MLModelService : IModelService
     {
-        public async Task<PredictionResult> PredictAsync(string imagePath)
+        public async Task<PredictionResult> PredictAsync(dynamic imagePath)
         {
             // TODO: Replace this with actual model inference code
             // For now, return a mock result

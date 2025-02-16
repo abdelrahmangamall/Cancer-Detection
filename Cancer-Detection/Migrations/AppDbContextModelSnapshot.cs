@@ -17,7 +17,7 @@ namespace Cancer_Detection.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -28,16 +28,40 @@ namespace Cancer_Detection.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("ImagePath")
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("FilePath")
                         .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("Height")
+                        .HasColumnType("int");
+
+                    b.Property<string>("StoredFileName")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
 
                     b.Property<DateTime>("UploadDate")
                         .HasColumnType("datetime2");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("Width")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -49,16 +73,28 @@ namespace Cancer_Detection.Migrations
                         new
                         {
                             Id = new Guid("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
-                            ImagePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\undraw_Dev_productivity_re_fylf.png",
-                            UploadDate = new DateTime(2025, 2, 10, 22, 23, 27, 79, DateTimeKind.Local).AddTicks(3939),
-                            UserId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6")
+                            ContentType = "image/png",
+                            FileName = "undraw_Dev_productivity_re_fylf.png",
+                            FilePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\undraw_Dev_productivity_re_fylf.png",
+                            FileSize = 1024L,
+                            Height = 600,
+                            StoredFileName = "unique_filename_1.png",
+                            UploadDate = new DateTime(2025, 2, 16, 9, 42, 13, 613, DateTimeKind.Local).AddTicks(4028),
+                            UserId = new Guid("3fa85f64-5717-4562-b3fc-2c963f66afa6"),
+                            Width = 800
                         },
                         new
                         {
                             Id = new Guid("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
-                            ImagePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\download.png",
-                            UploadDate = new DateTime(2025, 2, 10, 22, 23, 27, 83, DateTimeKind.Local).AddTicks(7535),
-                            UserId = new Guid("4fa85f64-5717-4562-b3fc-2c963f66afa7")
+                            ContentType = "image/png",
+                            FileName = "download.png",
+                            FilePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\download.png",
+                            FileSize = 2048L,
+                            Height = 768,
+                            StoredFileName = "unique_filename_2.png",
+                            UploadDate = new DateTime(2025, 2, 16, 9, 42, 13, 635, DateTimeKind.Local).AddTicks(6902),
+                            UserId = new Guid("4fa85f64-5717-4562-b3fc-2c963f66afa7"),
+                            Width = 1024
                         });
                 });
 
