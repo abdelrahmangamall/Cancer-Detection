@@ -23,8 +23,9 @@ namespace Presentation
         [HttpPost]
         public async Task<IActionResult> Predict(IFormFile ctScan)
         {
-            var imagePath = await _imageService.SaveImage(ctScan);
-            var result = await _modelService.Predict(imagePath);
+
+            var imagePath = await  _imageService.SaveImageAsync(ctScan);
+            var result = await _modelService.PredictAsync(imagePath);
             return Ok(result);
         }
     }
