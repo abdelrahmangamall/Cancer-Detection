@@ -1,5 +1,4 @@
 ﻿using Domain_Layer.Models;
-using Domain_Layer.Modles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -15,8 +14,7 @@ namespace Persistence.Config
 
             builder.HasKey(c => c.Id);
 
-            builder.Property(c => c.UserId)
-                   .IsRequired();
+            
 
             builder.Property(c => c.FileName)
                    .IsRequired()
@@ -46,11 +44,6 @@ namespace Persistence.Config
             builder.Property(c => c.Height)
                    .IsRequired(false); 
 
-            builder.HasOne<User>()
-                   .WithMany()
-                   .HasForeignKey(c => c.UserId)
-                   .OnDelete(DeleteBehavior.NoAction);
-
             builder.HasData(LoadCTScans());
         }
 
@@ -61,7 +54,6 @@ namespace Persistence.Config
                 new CTScan
                 {
                     Id = Guid.Parse("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
-                    UserId = Guid.Parse("3fa85f64-5717-4562-b3fc-2c963f66afa6"), 
                     FileName = "undraw_Dev_productivity_re_fylf.png",
                     StoredFileName = "unique_filename_1.png",
                     FileSize = 1024, 
@@ -74,7 +66,6 @@ namespace Persistence.Config
                 new CTScan
                 {
                     Id = Guid.Parse("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
-                    UserId = Guid.Parse("4fa85f64-5717-4562-b3fc-2c963f66afa7"), 
                     FileName = "download.png",
                     StoredFileName = "unique_filename_2.png",
                     FileSize = 2048, 

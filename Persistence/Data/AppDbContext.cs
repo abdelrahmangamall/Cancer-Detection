@@ -1,5 +1,4 @@
 ﻿using Domain_Layer.Models;
-using Domain_Layer.Modles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -17,7 +16,6 @@ namespace Persistence.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<User> Users => Set<User>();
         public DbSet<CTScan> CTScans => Set<CTScan>();
         public DbSet<PredictionResult> PredictionResults => Set<PredictionResult>();
 
