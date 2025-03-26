@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Presentation
 {
     // Presentation/Controllers/PredictController.cs
-    [Authorize]
+   
     [ApiController]
     [Route("api/predict")]
     public class PredictController : ControllerBase

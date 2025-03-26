@@ -14,7 +14,7 @@ namespace Persistence.Config
 
             builder.HasKey(p => p.Id);
 
-            builder.Property(p => p.ScanId)
+            builder.Property(p => p.CTScanId)
                    .IsRequired();
 
             builder.Property(p => p.Prediction)
@@ -28,8 +28,8 @@ namespace Persistence.Config
                    .IsRequired();
 
             builder.HasOne<CTScan>()
-                   .WithMany()
-                   .HasForeignKey(p => p.ScanId)
+                   .WithOne(x=>x.PredictionResult)
+                   .HasForeignKey<PredictionResult>(p => p.CTScanId)
                    .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasData(LoadPredictionResults());
@@ -42,7 +42,7 @@ namespace Persistence.Config
                 new PredictionResult
                 {
                     Id =  Guid.Parse("7fa85f64-5717-4562-b3fc-2c963f66afa0"),
-                    ScanId = Guid.Parse("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
+                    CTScanId = Guid.Parse("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
                     Prediction = "NSCLC",
                     Confidence = 0.95f,
                     PredictionDate = new DateTime(2023, 10, 1)
@@ -50,7 +50,7 @@ namespace Persistence.Config
                 new PredictionResult
                 {
                     Id =  Guid.Parse("7fa85f64-5717-4562-b3fc-2c963f66afc9"),
-                    ScanId = Guid.Parse("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
+                    CTScanId = Guid.Parse("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
                     Prediction = "SCLC",
                     Confidence = 0.89f,
                     PredictionDate = new DateTime(2023, 10, 2)

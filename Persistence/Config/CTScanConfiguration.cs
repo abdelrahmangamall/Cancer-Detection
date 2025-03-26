@@ -14,22 +14,10 @@ namespace Persistence.Config
 
             builder.HasKey(c => c.Id);
 
-            
 
             builder.Property(c => c.FileName)
                    .IsRequired()
                    .HasMaxLength(255); 
-
-            builder.Property(c => c.StoredFileName)
-                   .IsRequired()
-                   .HasMaxLength(255); 
-
-            builder.Property(c => c.FileSize)
-                   .IsRequired();
-
-            builder.Property(c => c.ContentType)
-                   .IsRequired()
-                   .HasMaxLength(100); 
 
             builder.Property(c => c.FilePath)
                    .IsRequired()
@@ -38,11 +26,7 @@ namespace Persistence.Config
             builder.Property(c => c.UploadDate)
                    .IsRequired();
 
-            builder.Property(c => c.Width)
-                   .IsRequired(false); 
-
-            builder.Property(c => c.Height)
-                   .IsRequired(false); 
+           
 
             builder.HasData(LoadCTScans());
         }
@@ -55,25 +39,15 @@ namespace Persistence.Config
                 {
                     Id = Guid.Parse("5fa85f64-5717-4562-b3fc-2c963f66afa8"),
                     FileName = "undraw_Dev_productivity_re_fylf.png",
-                    StoredFileName = "unique_filename_1.png",
-                    FileSize = 1024, 
-                    ContentType = "image/png",
                     FilePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\undraw_Dev_productivity_re_fylf.png",
                     UploadDate = DateTime.Now,
-                    Width = 800, 
-                    Height = 600 
                 },
                 new CTScan
                 {
                     Id = Guid.Parse("6fa85f64-5717-4562-b3fc-2c963f66afa9"),
                     FileName = "download.png",
-                    StoredFileName = "unique_filename_2.png",
-                    FileSize = 2048, 
-                    ContentType = "image/png",
                     FilePath = "C:\\Users\\abdel\\source\\repos\\Cancer-Detection-master\\Persistence\\Data\\Images\\download.png",
                     UploadDate = DateTime.Now,
-                    Width = 1024,
-                    Height = 768 
                 }
             };
         }

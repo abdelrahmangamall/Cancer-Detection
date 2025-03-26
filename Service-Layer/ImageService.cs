@@ -48,14 +48,9 @@ public class ImageService : IImageService
         // Create CTScan entity with metadata
         var ctScan = new CTScan
         {
-            FileName = image.FileName,
-            StoredFileName = uniqueFileName,
-            FileSize = image.Length,
-            ContentType = image.ContentType,
+            FileName = image.FileName,         
             FilePath = fullPath,
             UploadDate = DateTime.UtcNow,
-            Width = width,
-            Height = height
         };
 
         // Save to database
